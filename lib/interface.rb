@@ -20,12 +20,15 @@ class Interface
 
       ___________________________
      |   |   |   |   |   |   |   |
-     | x | #{game_board.get_game(0, 0)} | #{game_board.get_game(1, 0)} | #{game_board.get_game(2, 0)} | #{game_board.get_game(3, 0)} | #{game_board.get_game(4, 0)} | #{game_board.get_game(5, 0)} |
-     | x | #{game_board.get_game(0, 1)} | #{game_board.get_game(1, 1)} | #{game_board.get_game(2, 1)} | #{game_board.get_game(3, 1)} | #{game_board.get_game(4, 1)} | #{game_board.get_game(5, 1)} |
-     | x | #{game_board.get_game(0, 2)} | #{game_board.get_game(1, 2)} | #{game_board.get_game(2, 2)} | #{game_board.get_game(3, 2)} | #{game_board.get_game(4, 2)} | #{game_board.get_game(5, 2)} |
-     | x | #{game_board.get_game(0, 3)} | #{game_board.get_game(1, 3)} | #{game_board.get_game(2, 3)} | #{game_board.get_game(3, 3)} | #{game_board.get_game(4, 3)} | #{game_board.get_game(5, 3)} |
+     | x | #{output_color(game_board.get_game(0, 0))} | #{output_color(game_board.get_game(1, 0))} | #{output_color(game_board.get_game(2, 0))} | #{output_color(game_board.get_game(3, 0))} | #{output_color(game_board.get_game(4, 0))} | #{output_color(game_board.get_game(5, 0))} |
+     | x | #{output_color(game_board.get_game(0, 1))} | #{output_color(game_board.get_game(1, 1))} | #{output_color(game_board.get_game(2, 1))} | #{output_color(game_board.get_game(3, 1))} | #{output_color(game_board.get_game(4, 1))} | #{output_color(game_board.get_game(5, 1))} |
+     | x | #{output_color(game_board.get_game(0, 2))} | #{output_color(game_board.get_game(1, 2))} | #{output_color(game_board.get_game(2, 2))} | #{output_color(game_board.get_game(3, 2))} | #{output_color(game_board.get_game(4, 2))} | #{output_color(game_board.get_game(5, 2))} |
+     | x | #{output_color(game_board.get_game(0, 3))} | #{output_color(game_board.get_game(1, 3))} | #{output_color(game_board.get_game(2, 3))} | #{output_color(game_board.get_game(3, 3))} | #{output_color(game_board.get_game(4, 3))} | #{output_color(game_board.get_game(5, 3))} |
      |___|___|___|___|___|___|___|
-     )
+         | #{output_color(game_board.get_game(0,4), 7)} | #{output_color(game_board.get_game(1,4), 7)} | #{output_color(game_board.get_game(2,4), 7)} | #{output_color(game_board.get_game(3,4), 7)} | #{output_color(game_board.get_game(4,4),7)} | #{output_color(game_board.get_game(5,4),7)} |
+         | #{game_board.get_game(0,5)} | #{game_board.get_game(1,5)} | #{game_board.get_game(2,5)} | #{game_board.get_game(3,5)} | #{game_board.get_game(4,5)} | #{game_board.get_game(5,5)} |
+         |___|___|___|___|___|___|
+)
   end
 
   # Used in order to clear the screen and keep the interface readable.
@@ -33,9 +36,10 @@ class Interface
     system('clear') || system('cls')
   end
 
-  def output_color(text, color)
-    # Color matches: 1 - Black; 2 - White; 3 - Red; 4 - Yellow; 5 - Green; 6 - Blue
-    colors = { 1 => 30, 2 => 36, 3 => 31, 4 => 33, 5 => 35, 6 => 34 }
+  # TODO: Change colors to background colors.
+  def output_color(text, color=text.to_i)
+    # Color matches: 1 - Black; 2 - White; 3 - Red; 4 - Yellow; 5 - Green; 6 - Blue; 7 - Gold
+    colors = { 1 => 30, 2 => 36, 3 => 31, 4 => 33, 5 => 35, 6 => 34, 7 => 220 }
     # \e[47m Is for the grey foreground \e[{color} is for picking the color and \e[0m is for resetting the terminal.
     "\e[1m\e[47m\e[#{colors[color]}m#{text}\e[0m\e[22m"
   end
@@ -44,6 +48,11 @@ class Interface
     clear_screen
     puts "That was not a valid input: #{input}\n"
     sleep(1.5)
+  end
+
+  def ask_for_input
+    puts "Type four numbers, between 1 to 6, and guess the code!\n"
+    gets.chomp
   end
 
   private
@@ -106,10 +115,5 @@ class Interface
         invalid_input(input)
       end
     end
-  end
-
-  def ask_for_input
-    puts "Type four numbers, between 1 to 6, and guess the code!\n"
-    gets.chomp
   end
 end

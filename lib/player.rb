@@ -8,11 +8,13 @@ class Player
     @game_board = game_board
   end
 
+  def new_code_input
+    interface.ask_for_input
+  end
+
   private
 
   attr_reader :interface, :game_board
 
-  def new_code_input
-    interface.ask_for_input
-  end
+
 end
