@@ -38,7 +38,6 @@ class GameBoard
     self.code = generate_code
     player.guessing = true
     play(code)
-
   end
 
   def initialize_setting
@@ -86,7 +85,7 @@ class GameBoard
     end
   end
 
-  #This code is shit, I know :p.
+  # This code is shit, I know :p.
 
   def compare_play(code_to_crack, code_guesser)
     code_passed = code_guesser
@@ -95,6 +94,8 @@ class GameBoard
     else
       color_place_guesses = 0
       color_guesses = 0
+
+      # Convert int to array :p
 
       code_to_crack = code_to_crack.to_s.split('')
       code_guesser = code_guesser.to_s.split('')
